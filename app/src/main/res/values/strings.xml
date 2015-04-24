@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Happycalculations</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+  <string name="sum">Суммирование</string>
+  <string name="multiply">Умножение</string>
+  <string name="division">Деление</string>
+  <string name="power">Возведение в степень</string>
+
+</resources>
