@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
     Operations operation = (Operations) intent.getSerializableExtra("operation");
     this.operation = operation;
     prepareForOperation(operation);
-    firstNumber.setText(maxValue);
-    secondNumber.setText(maxValue);
+    firstNumber.setText(maxValue.toString());
+    secondNumber.setText(String.valueOf(maxValue/2));
   }
 
   private void prepareForOperation(Operations operation){
