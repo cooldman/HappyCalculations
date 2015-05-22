@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 /**
  * y.zakharov on 22.04.2015.
  */
@@ -20,6 +22,7 @@ public class MainActivity extends Activity {
   private Operations operation;
   private Button checkButton;
   private EditText resultField;
+  private Random random = new Random();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,8 @@ public class MainActivity extends Activity {
     final Operations operation = (Operations) intent.getSerializableExtra("operation");
     this.operation = operation;
     prepareForOperation(operation);
-    firstNumberField.setText(maxValue.toString());
-    secondNumberField.setText(String.valueOf(maxValue / 2));
+    firstNumberField.setText(getRandomNumber().toString());
+    secondNumberField.setText(getRandomNumber().toString());
     checkButton = (Button) findViewById(R.id.checkButton);
     checkButton.setOnClickListener(new View.OnClickListener() {
                                      @Override
@@ -45,6 +48,7 @@ public class MainActivity extends Activity {
                                          Integer secondNumber = getIntegerValueOfTextField(secondNumberField);
                                          switch (operation) {
                                            case PLUS:
+                                             // Молодец, красавчик, грузим следующий пример
                                                Toast.makeText(getApplicationContext(), String.valueOf(result.equals(firstNumber + secondNumber)), Toast.LENGTH_LONG).show();
                                              break;
                                            case MULTIPLY:
@@ -71,6 +75,11 @@ public class MainActivity extends Activity {
 
   private Integer getIntegerValueOfTextField(EditText textView) {
     return Integer.valueOf(String.valueOf(textView.getText()));
+  }
+
+
+  private Integer getRandomNumber(){
+    return random.nextInt(maxValue);
   }
 
   private void prepareForOperation(Operations operation) {
