@@ -8,5 +8,7 @@
   <string name="multiply">Умножение</string>
   <string name="division">Деление</string>
   <string name="power">Возведение в степень</string>
+  <string name="equals">=</string>
+  <string name="checkResult">Проверить</string>
 
 </resources>
