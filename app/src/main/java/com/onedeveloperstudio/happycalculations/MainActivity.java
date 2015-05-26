@@ -36,8 +36,7 @@ public class MainActivity extends Activity {
     final Operations operation = (Operations) intent.getSerializableExtra("operation");
     this.operation = operation;
     prepareForOperation(operation);
-    firstNumberField.setText(getRandomNumber().toString());
-    secondNumberField.setText(getRandomNumber().toString());
+    refreshValues();
     checkButton = (Button) findViewById(R.id.checkButton);
     checkButton.setOnClickListener(new View.OnClickListener() {
                                      @Override
@@ -46,20 +45,27 @@ public class MainActivity extends Activity {
                                          Integer result = getIntegerValueOfTextField(resultField);
                                          Integer firstNumber = getIntegerValueOfTextField(firstNumberField);
                                          Integer secondNumber = getIntegerValueOfTextField(secondNumberField);
+                                         boolean isTrue = false;
                                          switch (operation) {
                                            case PLUS:
                                              // Молодец, красавчик, грузим следующий пример
-                                               Toast.makeText(getApplicationContext(), String.valueOf(result.equals(firstNumber + secondNumber)), Toast.LENGTH_LONG).show();
+                                             isTrue = result.equals(firstNumber + secondNumber);
                                              break;
                                            case MULTIPLY:
-                                             Toast.makeText(getApplicationContext(),  String.valueOf(result.equals(firstNumber * secondNumber)), Toast.LENGTH_LONG).show();
+                                             isTrue = result.equals(firstNumber * secondNumber);
                                              break;
                                            case DIVISION:
-                                             Toast.makeText(getApplicationContext(),  String.valueOf(result.equals(firstNumber / secondNumber)), Toast.LENGTH_LONG).show();
+                                             isTrue = result.equals(firstNumber / secondNumber);
                                              break;
                                            case POWER:
-                                             Toast.makeText(getApplicationContext(),  String.valueOf(result.equals((int)Math.pow(firstNumber, secondNumber))), Toast.LENGTH_LONG).show();
+                                             isTrue = result.equals((int) Math.pow(firstNumber, secondNumber));
                                              break;
+                                         }
+                                         if(isTrue){
+                                           Toast.makeText(getApplicationContext(), "Красавчик", Toast.LENGTH_LONG).show();
+                                           refreshValues();
+                                         } else {
+                                           Toast.makeText(getApplicationContext(), "Лошара", Toast.LENGTH_LONG).show();
                                          }
                                        } else {
                                          Toast.makeText(getApplicationContext(), "Необходимо заполнить значение в поле Результат", Toast.LENGTH_LONG).show();
@@ -67,6 +73,12 @@ public class MainActivity extends Activity {
                                      }
                                    }
     );
+  }
+
+  private void refreshValues() {
+    firstNumberField.setText(getRandomNumber().toString());
+    secondNumberField.setText(getRandomNumber().toString());
+    resultField.setText("");
   }
 
   private Integer getIntegerValueOfTextField(TextView textView) {
