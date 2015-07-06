@@ -10,7 +10,8 @@
                 tools:context=".MenuActivity">
   <LinearLayout android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight=".60"
     android:gravity="center">
     <Button android:id="@+id/plus"
             android:text="@string/sum"
@@ -28,13 +29,13 @@
             android:text="@string/power"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    <com.google.android.gms.ads.AdView
-      android:id="@+id/adView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentBottom="true"
-      ads:adSize="BANNER"
-      ads:adUnitId="@string/banner_ad_unit_id">
-    </com.google.android.gms.ads.AdView>
   </LinearLayout>
+  <com.google.android.gms.ads.AdView
+    android:id="@+id/adView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    ads:adSize="BANNER"
+    ads:adUnitId="@string/banner_ad_unit_id">
+  </com.google.android.gms.ads.AdView>
 </RelativeLayout>

@@ -3,6 +3,8 @@ package com.onedeveloperstudio.happycalculations;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,7 @@ import java.util.Random;
 /**
  * y.zakharov on 22.04.2015.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
   private TextView firstNumberField;
   private TextView secondNumberField;
   private TextView operatorField;
@@ -28,6 +30,9 @@ public class MainActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_activity);
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.setDisplayHomeAsUpEnabled(true);
+    actionBar.setHomeActionContentDescription("Меню");
     firstNumberField = (TextView) findViewById(R.id.first);
     secondNumberField = (TextView) findViewById(R.id.second);
     operatorField = (TextView) findViewById(R.id.operator);
