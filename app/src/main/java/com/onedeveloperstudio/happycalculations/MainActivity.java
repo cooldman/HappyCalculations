@@ -3,6 +3,8 @@ package com.onedeveloperstudio.happycalculations;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -11,12 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
+import java.util.TimerTask;
 
 /**
  * y.zakharov on 22.04.2015.
  */
 public class MainActivity extends ActionBarActivity {
+  private TextView timechanger;
   private TextView firstNumberField;
   private TextView secondNumberField;
   private TextView operatorField;
@@ -33,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayHomeAsUpEnabled(true);
     actionBar.setHomeActionContentDescription("Меню");
+    timechanger = (TextView) findViewById(R.id.timechanger);
     firstNumberField = (TextView) findViewById(R.id.first);
     secondNumberField = (TextView) findViewById(R.id.second);
     operatorField = (TextView) findViewById(R.id.operator);
@@ -119,4 +126,21 @@ public class MainActivity extends ActionBarActivity {
         break;
     }
   }
+
+/*  protected static void startTimer() {
+    isTimerRunning = true;
+    timer.scheduleAtFixedRate(new TimerTask() {
+      public void run() {
+        elapsedTime += 1; //increase every sec
+        mHandler.obtainMessage(1).sendToTarget();
+
+      }
+    }, 0, 1000);
+  };
+
+  public Handler mHandler = new Handler() {
+    public void handleMessage(Message msg) {
+      StopWatch.time.setText(formatIntoHHMMSS(elapsedTime)); //this is the textview
+    }
+  }*/
 }
