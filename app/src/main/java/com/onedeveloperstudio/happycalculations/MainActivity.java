@@ -1,10 +1,8 @@
 package com.onedeveloperstudio.happycalculations;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -16,10 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.Random;
-import java.util.TimerTask;
 
 /**
  * y.zakharov on 22.04.2015.
@@ -53,8 +48,18 @@ public class MainActivity extends ActionBarActivity {
       updatedTime = timeSwapBuff + timeInMilliseconds;
       int secs = (int) (updatedTime / 1000);
       secs = secs % 60;
-      timechanger.setText("" + String.format("%02d", secs) + "s");
-      customHandler.postDelayed(this, 1000);
+      if(secs == 0){
+        customHandler.removeCallbacks(this);
+        startButton.setEnabled(true);
+        Toast toast = Toast.makeText(getApplicationContext(), "Ваш результат: " + rightAnswers, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, -50);
+        toast.show();
+        rightAnswers = 0;
+        startButton.setText(R.string.start);
+      } else {
+        timechanger.setText("" + String.format("%02d", secs) + "s");
+        customHandler.postDelayed(this, 1000);
+      }
     }
   };
 
