@@ -8,6 +8,8 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +70,18 @@ public class MainActivity extends ActionBarActivity {
     secondNumberField = (TextView) findViewById(R.id.second);
     operatorField = (TextView) findViewById(R.id.operator);
     resultField = (EditText) findViewById(R.id.result);
+
+    resultField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == KeyEvent.KEYCODE_ENTER || actionId == KeyEvent.KEYCODE_ENDCALL) {
+          checkResult();
+          return true;
+        } else {
+          return true;
+        }
+      }
+    });
     startButton = (Button) findViewById(R.id.startbutton);
 
     startButton.setOnClickListener(new View.OnClickListener() {
@@ -88,42 +102,48 @@ public class MainActivity extends ActionBarActivity {
     checkButton.setOnClickListener(new View.OnClickListener() {
                                      @Override
                                      public void onClick(View v) {
-                                       if (!resultField.getText().equals("")) {
-                                         Integer result = getIntegerValueOfTextField(resultField);
-                                         Integer firstNumber = getIntegerValueOfTextField(firstNumberField);
-                                         Integer secondNumber = getIntegerValueOfTextField(secondNumberField);
-                                         boolean isTrue = false;
-                                         switch (operation) {
-                                           case PLUS:
-                                             // Молодец, красавчик, грузим следующий пример
-                                             isTrue = result.equals(firstNumber + secondNumber);
-                                             break;
-                                           case MULTIPLY:
-                                             isTrue = result.equals(firstNumber * secondNumber);
-                                             break;
-                                           case DIVISION:
-                                             isTrue = result.equals(firstNumber / secondNumber);
-                                             break;
-                                           case POWER:
-                                             isTrue = result.equals((int) Math.pow(firstNumber, secondNumber));
-                                             break;
-                                         }
-                                         if (isTrue) {
-                                           Toast.makeText(getApplicationContext(), "Красавчик", Toast.LENGTH_LONG).show();
-                                           if(timerStarted) {
-                                             rightAnswers++;
-                                             startButton.setText(String.valueOf(rightAnswers));
-                                           }
-                                           refreshValues();
-                                         } else {
-                                           Toast.makeText(getApplicationContext(), "Лошара", Toast.LENGTH_LONG).show();
-                                         }
-                                       } else {
-                                         Toast.makeText(getApplicationContext(), "Необходимо заполнить значение в поле Результат", Toast.LENGTH_LONG).show();
-                                       }
+                                       checkResult();
                                      }
                                    }
     );
+  }
+
+  private void checkResult() {
+    if (!resultField.getText().toString().equals("")) {
+      Toast toast = null;
+      Integer result = getIntegerValueOfTextField(resultField);
+      Integer firstNumber = getIntegerValueOfTextField(firstNumberField);
+      Integer secondNumber = getIntegerValueOfTextField(secondNumberField);
+      boolean isTrue = false;
+      switch (operation) {
+        case PLUS:
+          isTrue = result.equals(firstNumber + secondNumber);
+          break;
+        case MULTIPLY:
+          isTrue = result.equals(firstNumber * secondNumber);
+          break;
+        case DIVISION:
+          isTrue = result.equals(firstNumber / secondNumber);
+          break;
+        case POWER:
+          isTrue = result.equals((int) Math.pow(firstNumber, secondNumber));
+          break;
+      }
+      if (isTrue) {
+        toast = Toast.makeText(getApplicationContext(), "Красавчик", Toast.LENGTH_LONG);
+        if (timerStarted) {
+          rightAnswers++;
+          startButton.setText(String.valueOf(rightAnswers));
+        }
+        refreshValues();
+      } else {
+        toast = Toast.makeText(getApplicationContext(), "Подсоберись!", Toast.LENGTH_LONG);
+      }
+      if (toast != null) {
+        toast.setGravity(Gravity.CENTER, 0, -50);
+        toast.show();
+      }
+    }
   }
 
   private void refreshValues() {
@@ -142,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
     return Integer.valueOf(value);
   }
 
-  private Integer getRandomNumber(){
+  private Integer getRandomNumber() {
     return random.nextInt(maxValue);
   }
 
