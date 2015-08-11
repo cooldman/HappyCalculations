@@ -14,4 +14,5 @@
   <string name="start">Start</string>
   <string name="zero">00s</string>
   <string name="com.onedeveloperstudio.happycalculations.preference_key">ca-app-pub-4239266606720505/8811496473</string>
+  <string name="highscores">Лучшие результаты</string>
 </resources>

@@ -65,6 +65,12 @@
             android:background="@color/red"
             android:text="@string/power"/>
 
+          <Button
+            android:id="@+id/highscoreactivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/material_deep_teal_500"
+            android:text="@string/highscores"/>
         </LinearLayout>
       </RelativeLayout>
 

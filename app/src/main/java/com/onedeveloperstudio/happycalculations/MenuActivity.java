@@ -24,6 +24,8 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     devideButton.setOnClickListener(this);
     Button powerButton = (Button) findViewById(R.id.power);
     powerButton.setOnClickListener(this);
+    Button viewHighscoreView = (Button) findViewById(R.id.highscoreactivity);
+    viewHighscoreView.setOnClickListener(this);
     AdView mAdView = (AdView) findViewById(R.id.adView);
     AdRequest adRequest = new AdRequest.Builder().build();
     mAdView.loadAd(adRequest);
@@ -31,15 +33,20 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
   @Override
   public void onClick(View v) {
-    Intent intent = new Intent(this, MainActivity.class);
-    if(v.getId() == R.id.plus){
-      intent.putExtra("operation", Operations.PLUS);
-    } else if(v.getId() == R.id.multiply){
-      intent.putExtra("operation", Operations.MULTIPLY);
-    } else if(v.getId() == R.id.division){
-      intent.putExtra("operation", Operations.DIVISION);
-    } else if(v.getId() == R.id.power){
-      intent.putExtra("operation", Operations.POWER);
+    Intent intent = null;
+    if (v.getId() == R.id.highscoreactivity) {
+      intent = new Intent(this, HighScoreActivity.class);
+    } else {
+       intent = new Intent(this, MainActivity.class);
+      if (v.getId() == R.id.plus) {
+        intent.putExtra("operation", Operations.PLUS);
+      } else if (v.getId() == R.id.multiply) {
+        intent.putExtra("operation", Operations.MULTIPLY);
+      } else if (v.getId() == R.id.division) {
+        intent.putExtra("operation", Operations.DIVISION);
+      } else if (v.getId() == R.id.power) {
+        intent.putExtra("operation", Operations.POWER);
+      }
     }
     startActivity(intent);
   }
