@@ -41,4 +41,10 @@ public class ResultHandler {
     }
     return result;
   }
+
+  public static boolean dropHighScores(Activity activity){
+    SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+    sharedPref.edit().clear().commit();
+    return true;
+  }
 }
