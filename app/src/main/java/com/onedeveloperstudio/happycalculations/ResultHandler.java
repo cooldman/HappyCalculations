@@ -12,18 +12,6 @@ import java.util.Map;
  */
 public class ResultHandler {
 
-  private static ResultHandler handler;
-
-  private ResultHandler() {
-  }
-
-  public static ResultHandler getInstance() {
-    if (handler == null) {
-      return new ResultHandler();
-    }
-    return handler;
-  }
-
   public static boolean saveHighScore(String operation, Integer highScore, Activity activity) {
     SharedPreferences sharedPref = activity.getSharedPreferences(
         activity.getString(R.string.com_onedeveloperstudio_happycalculations_preference_key),
@@ -35,15 +23,19 @@ public class ResultHandler {
 
   public static Map<String, Integer> loadHighScore(Activity activity) {
     Map<String, Integer> result = new HashMap<>(4);
-    SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+    SharedPreferences sharedPref = activity.getSharedPreferences(
+        activity.getString(R.string.com_onedeveloperstudio_happycalculations_preference_key),
+        Context.MODE_PRIVATE);
     for (Operations operation : Operations.values()) {
       result.put(operation.name(), sharedPref.getInt(operation.name(), 0));
     }
     return result;
   }
 
-  public static boolean dropHighScores(Activity activity){
-    SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+  public static boolean dropHighScores(Activity activity) {
+    SharedPreferences sharedPref = activity.getSharedPreferences(
+        activity.getString(R.string.com_onedeveloperstudio_happycalculations_preference_key),
+        Context.MODE_PRIVATE);
     sharedPref.edit().clear().commit();
     return true;
   }

@@ -20,7 +20,6 @@ import java.util.Map;
  */
 public class HighScoreActivity extends ActionBarActivity {
   private ListView listView;
-  final ResultHandler handler = ResultHandler.getInstance();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class HighScoreActivity extends ActionBarActivity {
     dropButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        handler.dropHighScores(activity);
+        ResultHandler.dropHighScores(activity);
         showHighScore();
         Toast.makeText(getApplicationContext(), "Рекорды сброшены", Toast.LENGTH_LONG).show();
       }
@@ -45,7 +44,7 @@ public class HighScoreActivity extends ActionBarActivity {
   }
 
   private void showHighScore() {
-    Map<String, Integer> map = handler.loadHighScore(this);
+    Map<String, Integer> map = ResultHandler.loadHighScore(this);
     List<String> list = new ArrayList<>(map.size());
     for (String key : map.keySet()) {
       list.add(key + " : " + map.get(key));

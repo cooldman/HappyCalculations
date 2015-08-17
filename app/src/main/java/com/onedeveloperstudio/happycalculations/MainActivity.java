@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import javax.xml.transform.Result;
+
 /**
  * y.zakharov on 22.04.2015.
  */
@@ -48,12 +50,13 @@ public class MainActivity extends ActionBarActivity {
       updatedTime = timeSwapBuff + timeInMilliseconds;
       int secs = (int) (updatedTime / 1000);
       secs = secs % 60;
-      if(secs == 0){
+      if (secs == 0) {
         customHandler.removeCallbacks(this);
         startButton.setEnabled(true);
         Toast toast = Toast.makeText(getApplicationContext(), "Ваш результат: " + rightAnswers, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, -50);
         toast.show();
+        ResultHandler.saveHighScore(operation.name(), rightAnswers, MainActivity.this);
         rightAnswers = 0;
         startButton.setText(R.string.start);
       } else {
